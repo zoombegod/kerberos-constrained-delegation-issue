@@ -95,5 +95,11 @@ And additional issue is that a chain that works stops working after a non-workin
     - (optional) in wireshark you will see the correct `TGS-REQ` and `TGS-REP` pairs
 1. browse to `http://a.kerb-cd.test/kerberosTest?targets=b,e`
     - this call will execute scenario `1 -> 3 -> 4` from the image above
-    - this should show `"A -> D -> E: failed"`
+    - this should show `"A -> B -> E: failed"`
     - (optional) in wireshark you will see that for the last `TGS-REQ` (i.e. from `KerbCD_B` to `KerbCD_E`) an error is returned from the KDC (with error code 13, i.e. `ERR_BADOPTION`); you will also see that `KerbCD_B` attempts an NTLM fallback, which fails as expected
+1. browse to `http://c.kerb-cd.test/kerberosTest?targets=d,e`
+    - this call will execute scenario `2 -> 7 -> 8` from the image above
+    - this should show `"C -> D -> E: failed"`
+1. browse to `http://a.kerb-cd.test/kerberosTest?targets=d,e`
+    - this call will execute scenario `1 -> 6 -> 8` from the image above
+    - now this should show `"A -> D -> E: failed"` (i.e. the call before somehow "poisoned" the cache, making this previously successful call now unsuccessful)
