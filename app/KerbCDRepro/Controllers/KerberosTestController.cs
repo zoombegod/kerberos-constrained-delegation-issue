@@ -21,9 +21,7 @@ namespace KerbCDRepro.Controllers
 
             LogIdentity();
 
-            var targetValues = targets.Split(',');
-
-            if (targetValues.Length == 0)
+            if (string.IsNullOrWhiteSpace(targets))
             {
                 var identityName = WindowsIdentity.GetCurrent().Name;
                 Log($"Returning name of current windows identity {identityName}...");
@@ -31,13 +29,15 @@ namespace KerbCDRepro.Controllers
                 return Ok($"{ComponentId}: {identityName.Replace("\\", "/")}");
             }
 
+            var targetValues = targets.Split(',');
+
             var remainingTargets = string.Join(",", targetValues.Skip(1));
 
             var targetCompId = targetValues[0].ToUpperInvariant();
 
             var componentUrlTemplate = ConfigurationManager.AppSettings["ComponentUrlTemplate"];
 
-            var queryParams = remainingTargets.Any() ? "" : $"?targets={remainingTargets}";
+            var queryParams = remainingTargets.Any() ? $"?targets={remainingTargets}" : string.Empty;
             var url = $"{string.Format(componentUrlTemplate, targetCompId.ToLowerInvariant())}/kerberosTest{queryParams}";
 
             using (var client = new WebClient { UseDefaultCredentials = true })
@@ -56,7 +56,7 @@ namespace KerbCDRepro.Controllers
                 {
                     Log($"Call to component {targetCompId} failed.\n{e}");
 
-                    return Ok($"{ComponentId} -> {targetCompId}: failed\n\n{e}");
+                    return Ok($"{ComponentId} -> {targetCompId}: failed");
                 }
             }
         }

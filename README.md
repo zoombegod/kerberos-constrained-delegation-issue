@@ -41,7 +41,7 @@ And additional issue is that a chain that works stops working after a non-workin
     10.0.0.Z e.kerb-cd.test
     ```
 1. on server `W` install IE11 and Edge (this server simulates the client device)
-1. on server `W` in the internet options add `http://*.kerb-cd.test` as a trusted website in the local intranet zone
+1. on server `W` (logged in as `KerbCD_4`) in the internet options add `http://*.kerb-cd.test` as a trusted website in the local intranet zone
 1. on servers `X`, `Y`, and `Z` in IIS:
     - remove the default website and app pool
     - on the server level set `useAppPoolCredentials` to `true` in `system.webServer/security/authentication/windowsAuthentication` via the configuration manager
@@ -91,7 +91,7 @@ And additional issue is that a chain that works stops working after a non-workin
 1. log onto server `W` as user `KerbCD_4`
 1. in IE11 / Edge on server `W` browse to `http://a.kerb-cd.test/kerberosTest?targets=d,e`
     - this call will execute scenario `1 -> 6 -> 8` from the image above
-    - this should show `"A -> D -> E: AD\KerbCD_4"`
+    - this should show `"A -> D -> E: AD/KerbCD_4"`
     - (optional) in wireshark you will see the correct `TGS-REQ` and `TGS-REP` pairs
 1. browse to `http://a.kerb-cd.test/kerberosTest?targets=b,e`
     - this call will execute scenario `1 -> 3 -> 4` from the image above
