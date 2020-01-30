@@ -32,13 +32,13 @@ And additional issue is that a chain that works stops working after a non-workin
 
 ## Environment setup steps
 
-1. on servers `W`, `X`, `Y`, and `Z` create entries in the `hosts` file for all other servers as follows (alternatively create proper DNS entries, but entries in `hosts` files are enough to show the issue and are simpler to set up); replace the IPs according to your environment
+1. on servers `W`, `X`, and `Y` create entries in the `hosts` file for all other servers as follows (alternatively create proper DNS entries, but entries in `hosts` files are enough to show the issue and are simpler to set up); replace the IPs according to your environment
     ```
-    a.kerb-cd.test 10.0.0.X
-    b.kerb-cd.test 10.0.0.X
-    c.kerb-cd.test 10.0.0.Y
-    d.kerb-cd.test 10.0.0.Y
-    e.kerb-cd.test 10.0.0.Z
+    10.0.0.X a.kerb-cd.test
+    10.0.0.X b.kerb-cd.test
+    10.0.0.Y c.kerb-cd.test
+    10.0.0.Y d.kerb-cd.test
+    10.0.0.Z e.kerb-cd.test
     ```
 1. on server `W` install IE11 and Edge (this server simulates the client device)
 1. on server `W` in the internet options add `http://*.kerb-cd.test` as a trusted website in the local intranet zone
