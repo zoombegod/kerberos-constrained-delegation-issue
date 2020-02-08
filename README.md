@@ -5,7 +5,7 @@ This repository contains all necessary code and instructions to reproduce an iss
 ## Preconditions/environment
 
 - Active Directory for a single domain
-- 4 Windows Server 2016 with IIS 10 (the instances will be called `W`, `X`, `Y`, and `Z`), all joined to the same domain
+- 4 Windows Server 2016 with IIS 10 and .NET 4.7.2 (the instances will be called `W`, `X`, `Y`, and `Z`), all joined to the same domain
   - note that the issue can also be reproduced on Windows Server 2012 R2 with IIS 8.5
 - 4 domain user accounts (called `KerbCD_1`, `KerbCD_2`, `KerbCD_3`, and `KerbCD_4`); the first three will be used to run application pools in IIS
 - (optional but recommended) have wireshark (version 3.2.1) installed on servers `X` and `Y` to observer Kerberos network communication
